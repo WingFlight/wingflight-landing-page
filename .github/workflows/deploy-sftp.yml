@@ -33,9 +33,29 @@ jobs:
           test -n "$SFTP_USER"
           test -n "$SFTP_PASSWORD"
 
+      - name: Check SFTP connectivity
+        run: |
+          timeout 30s lftp <<EOF
+          set cmd:fail-exit yes
+          set net:timeout 10
+          set net:max-retries 1
+          set net:reconnect-interval-base 5
+          set net:reconnect-interval-max 5
+          set sftp:auto-confirm yes
+          set ssl:verify-certificate no
+          open -u "$SFTP_USER","$SFTP_PASSWORD" "sftp://$SFTP_HOST:$SFTP_PORT"
+          cls "$REMOTE_PATH"
+          bye
+          EOF
+
       - name: Upload site
         run: |
-          lftp -u "$SFTP_USER","$SFTP_PASSWORD" "sftp://$SFTP_HOST:$SFTP_PORT" <<EOF
+          timeout 10m lftp -u "$SFTP_USER","$SFTP_PASSWORD" "sftp://$SFTP_HOST:$SFTP_PORT" <<EOF
+          set cmd:fail-exit yes
+          set net:timeout 10
+          set net:max-retries 1
+          set net:reconnect-interval-base 5
+          set net:reconnect-interval-max 5
           set sftp:auto-confirm yes
           set ssl:verify-certificate no
           mirror --reverse --delete --verbose \
