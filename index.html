@@ -896,6 +896,124 @@
             }
         }
 
+        /* Resources Section */
+        .resources-inline {
+            margin-top: 60px;
+            animation: fadeInDown 0.8s ease 0.5s both;
+        }
+
+        .resources-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .resources-header h2 {
+            font-size: 2.4em;
+            font-weight: 900;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+        }
+
+        .resources-header p {
+            font-size: 1.05em;
+            color: var(--text-muted);
+            max-width: 520px;
+            margin: 0 auto;
+        }
+
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 860px;
+            margin: 0 auto;
+        }
+
+        .resource-card {
+            background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-card-muted) 100%);
+            border: 1px solid var(--border-soft);
+            border-radius: 24px;
+            box-shadow: var(--shadow-card);
+            padding: 40px;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+
+        .resource-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border-color: #d40000;
+        }
+
+        body.dark-theme .resource-card:hover {
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+        }
+
+        .resource-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 14px;
+            background: rgba(212, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #d40000;
+            flex: 0 0 auto;
+        }
+
+        body.dark-theme .resource-icon {
+            background: rgba(255, 77, 77, 0.12);
+        }
+
+        .resource-icon svg {
+            width: 28px;
+            height: 28px;
+        }
+
+        .resource-card h3 {
+            font-size: 1.4em;
+            font-weight: 800;
+            color: var(--text-primary);
+        }
+
+        .resource-card p {
+            font-size: 0.97em;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            flex: 1;
+        }
+
+        .resource-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.85em;
+            font-weight: 700;
+            color: #d40000;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-top: 6px;
+        }
+
+        .resource-link svg {
+            width: 16px;
+            height: 16px;
+            transition: transform 0.2s ease;
+        }
+
+        .resource-card:hover .resource-link svg {
+            transform: translateX(5px);
+        }
+
+        /* Theme-aware logos */
+        .logo-dark-white { display: none; }
+        body.dark-theme .logo-light { display: none; }
+        body.dark-theme .logo-dark-white { display: inline-block; }
+
         /* Animations */
         @keyframes pulse {
             0%, 100% { opacity: 1; }
@@ -911,7 +1029,8 @@
     <!-- Navigation -->
     <nav>
         <a href="#" class="nav-logo">
-            <img src="logos/wingflight_logo_gray_full.png" alt="Wingflight">
+            <img src="logos/wf_logo_dark.svg" alt="Wingflight" class="logo-light">
+            <img src="logos/wf_logo_dark_white.svg" alt="Wingflight" class="logo-dark-white">
         </a>
         <div class="nav-actions">
             <ul class="nav-links">
@@ -920,6 +1039,7 @@
                 <li><a href="#about">About</a></li>
                 <li><a href="#community">Discord</a></li>
                 <li><a href="#countdown">Release</a></li>
+                <li><a href="#resources">Resources</a></li>
             </ul>
             <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Switch to dark theme" aria-pressed="false">
                 Dark Mode
@@ -930,7 +1050,8 @@
     <!-- Hero Section -->
     <section class="hero">
         <div class="hero-content">
-            <img src="logos/wingflight_logo_gray_full.png" alt="Wingflight Logo" class="hero-logo">
+            <img src="logos/wf_logo_dark.svg" alt="Wingflight Logo" class="hero-logo logo-light">
+            <img src="logos/wf_logo_dark_white.svg" alt="Wingflight Logo" class="hero-logo logo-dark-white">
             <h1>
                 <span class="headline-accent">Stabilize</span> Your Flight
             </h1>
@@ -943,6 +1064,58 @@
                 <a href="https://github.com/WingFlight" class="btn btn-primary" target="_blank">
                     View on GitHub
                 </a>
+            </div>
+            <div class="resources-inline" id="resources">
+                <div class="resources-header">
+                    <h2>Explore Wingflight</h2>
+                    <p>Documentation and tools to get your aircraft in the air</p>
+                </div>
+                <div class="resources-grid">
+                    <a href="https://docs.wingflight.org" class="resource-card" target="_blank" rel="noopener noreferrer">
+                        <div class="resource-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+                                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+                                <line x1="10" y1="7" x2="16" y2="7"/>
+                                <line x1="10" y1="11" x2="16" y2="11"/>
+                                <line x1="10" y1="15" x2="13" y2="15"/>
+                            </svg>
+                        </div>
+                        <h3>Documentation</h3>
+                        <p>Setup guides, configuration references, and tuning tutorials for every aircraft type supported by Wingflight.</p>
+                        <span class="resource-link">
+                            docs.wingflight.org
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="5" y1="12" x2="19" y2="12"/>
+                                <polyline points="12 5 19 12 12 19"/>
+                            </svg>
+                        </span>
+                    </a>
+                    <a href="https://cfg.wingflight.org" class="resource-card" target="_blank" rel="noopener noreferrer">
+                        <div class="resource-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="4" y1="21" x2="4" y2="14"/>
+                                <line x1="4" y1="10" x2="4" y2="3"/>
+                                <line x1="12" y1="21" x2="12" y2="12"/>
+                                <line x1="12" y1="8" x2="12" y2="3"/>
+                                <line x1="20" y1="21" x2="20" y2="16"/>
+                                <line x1="20" y1="12" x2="20" y2="3"/>
+                                <line x1="1" y1="14" x2="7" y2="14"/>
+                                <line x1="9" y1="8" x2="15" y2="8"/>
+                                <line x1="17" y1="16" x2="23" y2="16"/>
+                            </svg>
+                        </div>
+                        <h3>Configurator</h3>
+                        <p>The browser-based Wingflight configurator — connect, configure, and fine-tune your flight controller directly from your browser.</p>
+                        <span class="resource-link">
+                            cfg.wingflight.org
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="5" y1="12" x2="19" y2="12"/>
+                                <polyline points="12 5 19 12 12 19"/>
+                            </svg>
+                        </span>
+                    </a>
+                </div>
             </div>
         </div>
     </section>
