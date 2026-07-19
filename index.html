@@ -1,0 +1,1193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Wingflight - Open Source Flight Stabilizer for Winged Aircraft">
+    <meta name="keywords" content="flight simulator, 3D, LOS, gliders, winged aircraft, rotorflight alternative">
+    <meta property="og:title" content="Wingflight - Coming Soon">
+    <meta property="og:description" content="Advanced open source flight stabilizer and autopilot for winged aircraft, gliders, and jets">
+    <meta property="og:image" content="logos/wingflight_logo_gray_full.png">
+    <title>Wingflight - Coming Soon | Open Source Flight Stabilizer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            color-scheme: light;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8f9fa;
+            --bg-tertiary: #f0f0f0;
+            --bg-card: #ffffff;
+            --bg-card-muted: #f8f9fa;
+            --bg-footer: #333333;
+            --bg-nav: rgba(255, 255, 255, 0.95);
+            --text-primary: #4e4e4e;
+            --text-secondary: #666666;
+            --text-muted: #777777;
+            --text-footer: #999999;
+            --border-soft: rgba(212, 0, 0, 0.1);
+            --border-strong: #d40000;
+            --shadow-card: 0 5px 15px rgba(0, 0, 0, 0.05);
+            --hero-accent: rgba(78, 78, 78, 0.05);
+            --toggle-bg: #ffffff;
+            --toggle-hover: #f2f2f2;
+        }
+
+        body.dark-theme {
+            color-scheme: dark;
+            --bg-primary: #101215;
+            --bg-secondary: #171b20;
+            --bg-tertiary: #1d232a;
+            --bg-card: #1a2027;
+            --bg-card-muted: #151a20;
+            --bg-footer: #0b0e12;
+            --bg-nav: rgba(16, 18, 21, 0.92);
+            --text-primary: #f4f5f7;
+            --text-secondary: #c5cad3;
+            --text-muted: #9da5b1;
+            --text-footer: #89919d;
+            --border-soft: rgba(255, 255, 255, 0.12);
+            --border-strong: #ff4d4d;
+            --shadow-card: 0 12px 30px rgba(0, 0, 0, 0.3);
+            --hero-accent: rgba(255, 255, 255, 0.08);
+            --toggle-bg: #1f252d;
+            --toggle-hover: #2a313a;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Helvetica Now Text', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            color: var(--text-primary);
+            overflow-x: hidden;
+            background: var(--bg-primary);
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            background: var(--bg-nav);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-soft);
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-size: 1.5em;
+            font-weight: 900;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .nav-logo img {
+            height: 40px;
+            width: auto;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-primary);
+            font-weight: 600;
+            font-size: 0.9em;
+            transition: color 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-links a:hover {
+            color: #d40000;
+        }
+
+        .theme-toggle {
+            border: 1px solid var(--border-soft);
+            background: var(--toggle-bg);
+            color: var(--text-primary);
+            border-radius: 999px;
+            padding: 10px 16px;
+            cursor: pointer;
+            font: inherit;
+            font-size: 0.85em;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            background: var(--toggle-hover);
+            transform: translateY(-1px);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 50%, var(--bg-tertiary) 100%);
+            position: relative;
+            overflow: hidden;
+            margin-top: 60px;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(212, 0, 0, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -20%;
+            left: -5%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, var(--hero-accent) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 8s ease-in-out infinite reverse;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(20px); }
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 10;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+
+        .hero-logo {
+            width: 150px;
+            height: auto;
+            margin-bottom: 30px;
+            animation: fadeInDown 0.8s ease;
+        }
+
+        h1 {
+            font-size: 4.5em;
+            font-weight: 900;
+            color: var(--text-primary);
+            line-height: 1.1;
+            margin-bottom: 20px;
+            letter-spacing: -2px;
+            animation: fadeInDown 0.8s ease 0.1s both;
+        }
+
+        .headline-accent {
+            color: #d40000;
+            display: inline-block;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5em;
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+            animation: fadeInDown 0.8s ease 0.2s both;
+        }
+
+        .hero-description {
+            font-size: 1.1em;
+            color: var(--text-muted);
+            line-height: 1.8;
+            margin-bottom: 50px;
+            animation: fadeInDown 0.8s ease 0.3s both;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-group {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInDown 0.8s ease 0.4s both;
+        }
+
+        .btn {
+            padding: 16px 40px;
+            font-size: 1em;
+            font-weight: 700;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-decoration: none;
+            display: inline-block;
+            font-family: 'Helvetica Now Text', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        .btn-primary {
+            background: #d40000;
+            color: white;
+            box-shadow: 0 10px 30px rgba(212, 0, 0, 0.3);
+        }
+
+        .btn-primary:hover {
+            background: #a40000;
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(212, 0, 0, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #d40000;
+            border: 2px solid #d40000;
+        }
+
+        .btn-secondary:hover {
+            background: #d40000;
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Features Section */
+        .features {
+            padding: 100px 40px;
+            background: var(--bg-primary);
+            position: relative;
+            z-index: 10;
+        }
+
+        .features-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .features-header h2 {
+            font-size: 3em;
+            font-weight: 900;
+            color: var(--text-primary);
+            margin-bottom: 20px;
+        }
+
+        .features-header p {
+            font-size: 1.1em;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 50px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .feature-icon {
+            font-size: 4em;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5em;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 15px;
+        }
+
+        .feature-card p {
+            font-size: 0.95em;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Countdown Timer */
+        .countdown-section {
+            padding: 100px 40px;
+            background: linear-gradient(135deg, #d40000 0%, #a40000 100%);
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .countdown-content {
+            max-width: 980px;
+            margin: 0 auto;
+        }
+
+        .launch-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 14px;
+            padding: 12px 18px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.14);
+            border: 1px solid rgba(255, 255, 255, 0.22);
+            margin-bottom: 28px;
+            backdrop-filter: blur(10px);
+        }
+
+        .launch-badge img {
+            height: 34px;
+            width: auto;
+            display: block;
+        }
+
+        .launch-badge span {
+            font-size: 0.85em;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .countdown-section h2 {
+            font-size: 2.5em;
+            font-weight: 900;
+            margin-bottom: 18px;
+            letter-spacing: -1px;
+        }
+
+        .countdown-lead {
+            max-width: 760px;
+            margin: 0 auto 18px;
+            font-size: 1.1em;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .countdown-meta {
+            margin-bottom: 40px;
+            font-size: 0.95em;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.78);
+        }
+
+        .countdown-timer {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 20px;
+            max-width: 600px;
+            margin: 0 auto 50px;
+        }
+
+        .countdown-item {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            padding: 30px 20px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .countdown-number {
+            font-size: 2.5em;
+            font-weight: 900;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .countdown-label {
+            font-size: 0.85em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.9;
+        }
+
+        .launch-note {
+            max-width: 760px;
+            margin: 0 auto;
+            font-size: 1.05em;
+            line-height: 1.7;
+            color: rgba(255, 255, 255, 0.92);
+        }
+
+        .launch-note a {
+            color: white;
+            font-weight: 700;
+        }
+
+        .community-section {
+            padding: 90px 40px;
+            background: var(--bg-primary);
+            position: relative;
+            z-index: 10;
+        }
+
+        .community-card {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-card-muted) 100%);
+            border: 1px solid var(--border-soft);
+            border-radius: 24px;
+            box-shadow: var(--shadow-card);
+            padding: 40px;
+            display: grid;
+            grid-template-columns: minmax(0, 1.5fr) minmax(260px, 0.9fr);
+            gap: 30px;
+            align-items: center;
+        }
+
+        .community-copy h2,
+        .progress-header h2 {
+            font-size: 2.4em;
+            font-weight: 900;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+        }
+
+        .community-copy p,
+        .progress-header p {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            font-size: 1.05em;
+        }
+
+        .community-actions {
+            margin-top: 28px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            align-items: center;
+        }
+
+        .discord-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px 24px;
+            border-radius: 12px;
+            background: #5865f2;
+            color: white;
+            text-decoration: none;
+            font-weight: 700;
+            box-shadow: 0 12px 30px rgba(88, 101, 242, 0.25);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .discord-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 16px 36px rgba(88, 101, 242, 0.32);
+        }
+
+        .discord-link svg {
+            width: 24px;
+            height: 24px;
+            fill: currentColor;
+            flex: 0 0 auto;
+        }
+
+        .community-hint {
+            font-size: 0.95em;
+            color: var(--text-muted);
+        }
+
+        .community-aside {
+            background: rgba(212, 0, 0, 0.06);
+            border: 1px solid var(--border-soft);
+            border-radius: 18px;
+            padding: 28px;
+        }
+
+        body.dark-theme .community-aside {
+            background: rgba(255, 77, 77, 0.08);
+        }
+
+        .community-aside h3 {
+            font-size: 1.1em;
+            font-weight: 800;
+            color: #d40000;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .community-aside p {
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        .progress-section {
+            padding: 100px 40px;
+            background: var(--bg-secondary);
+            position: relative;
+            z-index: 10;
+        }
+
+        .progress-content {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .progress-header {
+            margin-bottom: 40px;
+        }
+
+        .progress-list {
+            display: grid;
+            gap: 16px;
+        }
+
+        .progress-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 20px 24px;
+            border-radius: 16px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-soft);
+            box-shadow: var(--shadow-card);
+        }
+
+        .progress-check {
+            width: 28px;
+            height: 28px;
+            border-radius: 8px;
+            border: 2px solid var(--text-muted);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1em;
+            font-weight: 900;
+            flex: 0 0 auto;
+            color: transparent;
+        }
+
+        .progress-item.completed .progress-check {
+            background: #d40000;
+            border-color: #d40000;
+            color: white;
+        }
+
+        .progress-item span:last-child {
+            font-size: 1.02em;
+            color: var(--text-primary);
+        }
+
+        .progress-item.completed span:last-child {
+            color: var(--text-primary);
+        }
+
+        .progress-item.pending span:last-child {
+            color: var(--text-secondary);
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 10px;
+            max-width: 500px;
+            margin: 0 auto;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            min-width: 200px;
+            padding: 16px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.95em;
+            font-family: 'Helvetica Now Text', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        .newsletter-form input::placeholder {
+            color: #999;
+        }
+
+        .newsletter-form button {
+            padding: 16px 30px;
+            background: white;
+            color: #d40000;
+            border: none;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-family: 'Helvetica Now Text', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        .newsletter-form button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* About Section */
+        .about {
+            padding: 100px 40px;
+            background: var(--bg-secondary);
+            position: relative;
+            z-index: 10;
+        }
+
+        .about-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .about h2 {
+            font-size: 2.5em;
+            font-weight: 900;
+            color: var(--text-primary);
+            margin-bottom: 30px;
+        }
+
+        .about p {
+            font-size: 1.05em;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .about-highlights {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .highlight {
+            background: var(--bg-card);
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: var(--shadow-card);
+            border-left: 4px solid var(--border-strong);
+        }
+
+        .highlight h3 {
+            font-weight: 700;
+            color: #d40000;
+            margin-bottom: 10px;
+        }
+
+        .highlight p {
+            font-size: 0.95em;
+            margin: 0;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--bg-footer);
+            color: white;
+            padding: 50px 40px;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .social-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: #d40000;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 30px;
+            font-size: 0.9em;
+            color: var(--text-footer);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav {
+                padding: 15px 20px;
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .nav-actions {
+                width: 100%;
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .nav-links {
+                gap: 20px;
+                font-size: 0.8em;
+                justify-content: center;
+            }
+
+            h1 {
+                font-size: 2.5em;
+            }
+
+            .hero-subtitle {
+                font-size: 1.1em;
+            }
+
+            .hero-description {
+                font-size: 0.95em;
+            }
+
+            .features-header h2 {
+                font-size: 2em;
+            }
+
+            .countdown-section h2 {
+                font-size: 1.8em;
+            }
+
+            .community-section,
+            .progress-section {
+                padding: 60px 20px;
+            }
+
+            .community-card {
+                grid-template-columns: 1fr;
+                padding: 30px 24px;
+            }
+
+            .community-copy h2,
+            .progress-header h2 {
+                font-size: 1.9em;
+            }
+
+            .countdown-timer {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+
+            .countdown-item {
+                padding: 20px 15px;
+            }
+
+            .countdown-number {
+                font-size: 1.8em;
+            }
+
+            .about h2 {
+                font-size: 1.8em;
+            }
+
+            .features,
+            .countdown-section,
+            .about {
+                padding: 60px 20px;
+            }
+
+            .hero-content {
+                padding: 20px;
+            }
+
+            .cta-group {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero {
+                margin-top: 0;
+            }
+
+            h1 {
+                font-size: 1.8em;
+            }
+
+            .hero-subtitle {
+                font-size: 0.95em;
+            }
+
+            .features-grid {
+                gap: 30px;
+            }
+
+            .feature-card h3 {
+                font-size: 1.2em;
+            }
+
+            .features-header h2 {
+                font-size: 1.5em;
+            }
+
+            .countdown-section h2 {
+                font-size: 1.3em;
+            }
+
+            .launch-badge {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .community-copy h2,
+            .progress-header h2 {
+                font-size: 1.5em;
+            }
+        }
+
+        /* Animations */
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <a href="#" class="nav-logo">
+            <img src="logos/wingflight_logo_gray_full.png" alt="Wingflight">
+        </a>
+        <div class="nav-actions">
+            <ul class="nav-links">
+                <li><a href="#progress">Progress</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#community">Discord</a></li>
+                <li><a href="#countdown">Release</a></li>
+            </ul>
+            <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Switch to dark theme" aria-pressed="false">
+                Dark Mode
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <img src="logos/wingflight_logo_gray_full.png" alt="Wingflight Logo" class="hero-logo">
+            <h1>
+                <span class="headline-accent">Stabilize</span> Your Flight
+            </h1>
+            <p class="hero-subtitle">Advanced Open Source Flight Control for Winged Aircraft</p>
+            <p class="hero-description">
+                Wingflight is the flight stabilizer system designed for winged aircraft. 
+                Built by engineers and pilots, for everyone—bringing professional flight control to your aircraft.
+            </p>
+            <div class="cta-group">
+                <a href="https://github.com/WingFlight" class="btn btn-primary" target="_blank">
+                    View on GitHub
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Countdown Section -->
+    <section class="countdown-section" id="countdown">
+        <div class="countdown-content">
+            <div class="launch-badge">
+                <img src="https://www.jetpower.de/typo3temp/assets/_processed_/e/b/csm_jetpower-logo_a9d3021c1c.png" alt="JetPower logo">
+                <span>JetPower Release Event</span>
+            </div>
+
+            <h2>Countdown To Wingflight's First Flyable Release</h2>
+            <p class="countdown-lead">
+                The Wingflight dev team will be at JetPower, and on 04 September 2026 we will publish the first flyable release.
+            </p>
+            <p class="countdown-meta">04 September 2026 | JetPower</p>
+
+            <div class="countdown-timer">
+                <div class="countdown-item">
+                    <span class="countdown-number" id="days">00</span>
+                    <span class="countdown-label">Days</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-number" id="hours">00</span>
+                    <span class="countdown-label">Hours</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-number" id="minutes">00</span>
+                    <span class="countdown-label">Minutes</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-number" id="seconds">00</span>
+                    <span class="countdown-label">Seconds</span>
+                </div>
+            </div>
+
+            <p class="launch-note">
+                Meet the team at JetPower and follow the release as it happens. Event details are available at
+                <a href="https://www.jetpower.de/" target="_blank" rel="noopener noreferrer">jetpower.de</a>.
+            </p>
+        </div>
+    </section>
+
+    <!-- Community Section -->
+    <section class="community-section" id="community">
+        <div class="community-card">
+            <div class="community-copy">
+                <h2>Join The Wingflight Discord</h2>
+                <p>
+                    Follow development, see milestone updates, and connect with pilots and contributors as the first public release approaches.
+                </p>
+                <div class="community-actions">
+                    <a href="https://discord.gg/ydhgxCmwr" class="discord-link" target="_blank" rel="noopener noreferrer" aria-label="Join the Wingflight Discord server">
+                        <svg viewBox="0 0 127.14 96.36" aria-hidden="true" focusable="false">
+                            <path d="M107.7 8.07A105.15 105.15 0 0 0 81.47 0a72.06 72.06 0 0 0-3.36 6.83A97.68 97.68 0 0 0 49 6.83 72.37 72.37 0 0 0 45.64 0 105.89 105.89 0 0 0 19.39 8.09C2.79 32.65-1.71 56.6.54 80.21h.01A105.73 105.73 0 0 0 32.71 96.36a77.7 77.7 0 0 0 6.84-11.17 68.42 68.42 0 0 1-10.78-5.16c.91-.66 1.8-1.34 2.66-2.04a75.57 75.57 0 0 0 64.32 0c.87.71 1.76 1.39 2.67 2.04a68.68 68.68 0 0 1-10.8 5.17 77 77 0 0 0 6.84 11.16A105.25 105.25 0 0 0 126.6 80.22h.01c2.64-27.29-4.5-51-18.91-72.15ZM42.45 65.69C35.54 65.69 29.9 59.4 29.9 51.73c0-7.67 5.54-13.96 12.55-13.96S55 44.06 54.99 51.73c0 7.67-5.53 13.96-12.54 13.96Zm42.24 0c-6.9 0-12.54-6.29-12.54-13.96 0-7.67 5.54-13.96 12.54-13.96 7.02 0 12.56 6.29 12.55 13.96 0 7.67-5.53 13.96-12.55 13.96Z"/>
+                        </svg>
+                        Join Discord
+                    </a>
+                    <span class="community-hint">Get release updates, testing news, and direct contact with the Wingflight community.</span>
+                </div>
+            </div>
+            <aside class="community-aside">
+                <h3>Why Join Now</h3>
+                <p>
+                    Discord is where JetPower plans, test progress, and release-day coordination will be shared first. It is the best place to stay close to the project as the MVP turns into a public release.
+                </p>
+            </aside>
+        </div>
+    </section>
+
+    <!-- Progress Section -->
+    <section class="progress-section" id="progress">
+        <div class="progress-content">
+            <div class="progress-header">
+                <h2>Wingflight Progress</h2>
+                <p>Current milestones toward the first flyable release.</p>
+            </div>
+
+            <div class="progress-list">
+                <div class="progress-item completed"><span class="progress-check">&#10003;</span><span>Toolchain setup</span></div>
+                <div class="progress-item completed"><span class="progress-check">&#10003;</span><span>Definition of MVP</span></div>
+                <div class="progress-item completed"><span class="progress-check">&#10003;</span><span>Basic mixer for conventional and delta aircraft</span></div>
+                <div class="progress-item completed"><span class="progress-check">&#10003;</span><span>ESC programming via PC</span></div>
+                <div class="progress-item completed"><span class="progress-check">&#10003;</span><span>Support for bus servos</span></div>
+                <div class="progress-item completed"><span class="progress-check">&#10003;</span><span>First successful test flight</span></div>
+                <div class="progress-item pending"><span class="progress-check">&#10003;</span><span>Simplified PID controller and tuning architecture</span></div>
+                <div class="progress-item pending"><span class="progress-check">&#10003;</span><span>Controller auto tune</span></div>
+                <div class="progress-item pending"><span class="progress-check">&#10003;</span><span>Extensive testing</span></div>
+                <div class="progress-item pending"><span class="progress-check">&#10003;</span><span>Thrust vectoring support</span></div>
+                <div class="progress-item pending"><span class="progress-check">&#10003;</span><span>HITL/SITL environment</span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="features-header">
+            <h2>Why Wingflight?</h2>
+            <p>Professional-grade flight stabilization for gliders, winged aircraft, and jets</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">⚙️</div>
+                <h3>Advanced Stabilization</h3>
+                <p>Multi-axis stabilization system optimized for winged aircraft dynamics and challenging flight conditions.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📡</div>
+                <h3>Precision Control</h3>
+                <p>Real-time flight control algorithms with intuitive stick feel and responsive handling.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🚀</div>
+                <h3>Multi-Aircraft Support</h3>
+                <p>Gliders, 3D sport aircraft, jets, and more—adaptable to any winged platform with configurable parameters.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔧</div>
+                <h3>Fully Customizable</h3>
+                <p>Open source architecture with extensive tuning options and telemetry for precise aircraft configuration.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🌐</div>
+                <h3>Active Community</h3>
+                <p>Thriving open source ecosystem where pilots and engineers collaborate on improvements and innovations.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📊</div>
+                <h3>Full Telemetry</h3>
+                <p>Comprehensive data logging and real-time monitoring for flight analysis and system optimization.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="about-content">
+            <h2>About Wingflight</h2>
+            <p>
+                Wingflight is an open source flight stabilizer built on the proven foundation of Rotorflight, but designed 
+                for fixed-wing aircraft. We bring the same engineering excellence, community-driven development, and passion to 
+                winged flight. Whether you're flying gliders, 3D sport aircraft, or jets, Wingflight provides rock-solid 
+                stabilization and intuitive control.
+            </p>
+            <p>
+                Our mission is to democratize advanced flight control technology. Built by engineers and pilots, Wingflight 
+                combines cutting-edge algorithms with ease-of-use, making professional-grade flight stabilization accessible 
+                to the entire community. Join us in shaping the future of open source flight control.
+            </p>
+
+            <div class="about-highlights">
+                <div class="highlight">
+                    <h3>🪂 For Gliders</h3>
+                    <p>Stable thermaling and long-distance flight with wind-aware stabilization modes.</p>
+                </div>
+                <div class="highlight">
+                    <h3>🎯 For 3D Aircraft</h3>
+                    <p>Full authority control for extreme aerobatics with precision stabilization.</p>
+                </div>
+                <div class="highlight">
+                    <h3>⚡ For Jets & Beyond</h3>
+                    <p>High-speed flight control with advanced stabilization and precision systems.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="social-links">
+                <a href="https://github.com/WingFlight" title="GitHub" target="_blank">GitHub</a>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Wingflight Project. All rights reserved. | <strong>Freedom in Flight</strong></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const themeToggle = document.getElementById('theme-toggle');
+        const storedTheme = localStorage.getItem('theme');
+        const preferredDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+        function applyTheme(theme) {
+            const isDark = theme === 'dark';
+            document.body.classList.toggle('dark-theme', isDark);
+            themeToggle.textContent = isDark ? 'Light Mode' : 'Dark Mode';
+            themeToggle.setAttribute('aria-label', isDark ? 'Switch to light theme' : 'Switch to dark theme');
+            themeToggle.setAttribute('aria-pressed', String(isDark));
+        }
+
+        applyTheme(storedTheme || (preferredDark ? 'dark' : 'light'));
+
+        themeToggle.addEventListener('click', () => {
+            const nextTheme = document.body.classList.contains('dark-theme') ? 'light' : 'dark';
+            localStorage.setItem('theme', nextTheme);
+            applyTheme(nextTheme);
+        });
+
+        // Countdown Timer
+        function updateCountdown() {
+            const launchDate = new Date('2026-09-04T00:00:00');
+
+            const now = new Date().getTime();
+            const distance = launchDate.getTime() - now;
+
+            if (distance <= 0) {
+                document.getElementById('days').textContent = '00';
+                document.getElementById('hours').textContent = '00';
+                document.getElementById('minutes').textContent = '00';
+                document.getElementById('seconds').textContent = '00';
+                document.querySelector('.countdown-section h2').textContent = 'Wingflight Is Live';
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById('days').textContent = String(days).padStart(2, '0');
+            document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+            document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+            document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+        }
+
+        // Update countdown every second
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
