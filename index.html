@@ -60,6 +60,7 @@
 
         html {
             scroll-behavior: smooth;
+            scroll-padding-top: 65px;
         }
 
         body {
@@ -110,6 +111,8 @@
             display: flex;
             gap: 40px;
             list-style: none;
+            margin-left: auto;
+            padding-right: 24px;
         }
 
         .nav-links a {
@@ -144,6 +147,45 @@
         .theme-toggle:hover {
             background: var(--toggle-hover);
             transform: translateY(-1px);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            gap: 5px;
+            padding: 8px 10px;
+            background: var(--toggle-bg);
+            border: 1px solid var(--border-soft);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .hamburger:hover {
+            background: var(--toggle-hover);
+        }
+
+        .hamburger span {
+            display: block;
+            width: 20px;
+            height: 2px;
+            background: var(--text-primary);
+            border-radius: 2px;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+
+        .hamburger.open span:nth-child(1) {
+            transform: translateY(7px) rotate(45deg);
+        }
+
+        .hamburger.open span:nth-child(2) {
+            opacity: 0;
+            transform: scaleX(0);
+        }
+
+        .hamburger.open span:nth-child(3) {
+            transform: translateY(-7px) rotate(-45deg);
         }
 
         /* Hero Section */
@@ -766,21 +808,51 @@
         /* Responsive */
         @media (max-width: 768px) {
             nav {
-                padding: 15px 20px;
-                flex-direction: column;
-                gap: 15px;
+                padding: 0 16px;
+                min-height: 56px;
+                flex-wrap: wrap;
+                justify-content: flex-start;
+                gap: 0;
+                align-items: center;
+            }
+
+            .nav-logo {
+                flex: 0 0 auto;
+                padding: 8px 0;
             }
 
             .nav-actions {
-                width: 100%;
-                flex-direction: column;
-                gap: 15px;
+                flex: 0 0 auto;
+                margin-left: auto;
+                gap: 10px;
+            }
+
+            .hamburger {
+                display: flex;
             }
 
             .nav-links {
-                gap: 20px;
-                font-size: 0.8em;
-                justify-content: center;
+                display: none;
+                flex: 0 0 100%;
+                flex-direction: column;
+                gap: 0;
+                margin-left: 0;
+                padding-right: 0;
+                border-top: 1px solid var(--border-soft);
+                padding-top: 6px;
+                padding-bottom: 6px;
+            }
+
+            .nav-links li a {
+                display: block;
+                padding: 11px 20px;
+                text-align: center;
+                font-size: 0.95em;
+                letter-spacing: 0.3px;
+            }
+
+            nav.nav-open .nav-links {
+                display: flex;
             }
 
             h1 {
@@ -845,6 +917,12 @@
                 padding: 20px;
             }
 
+            .resources-grid,
+            .features-grid,
+            .about-highlights {
+                grid-template-columns: 1fr;
+            }
+
             .cta-group {
                 flex-direction: column;
                 align-items: center;
@@ -854,13 +932,13 @@
                 width: 100%;
                 max-width: 300px;
             }
+
+            footer {
+                padding: 40px 20px;
+            }
         }
 
         @media (max-width: 480px) {
-            .hero {
-                margin-top: 0;
-            }
-
             h1 {
                 font-size: 1.8em;
             }
@@ -1023,26 +1101,37 @@
         .pulse {
             animation: pulse 2s infinite;
         }
+
+        @media (max-width: 768px) {
+            .resources-grid {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 <body>
     <!-- Navigation -->
-    <nav>
+    <nav id="main-nav">
         <a href="#" class="nav-logo">
             <img src="logos/wf_logo_dark.svg" alt="Wingflight" class="logo-light">
             <img src="logos/wf_logo_dark_white.svg" alt="Wingflight" class="logo-dark-white">
         </a>
+        <ul class="nav-links" id="nav-links">
+            <li><a href="#progress">Progress</a></li>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#community">Discord</a></li>
+            <li><a href="#countdown">Release</a></li>
+            <li><a href="#resources">Resources</a></li>
+        </ul>
         <div class="nav-actions">
-            <ul class="nav-links">
-                <li><a href="#progress">Progress</a></li>
-                <li><a href="#features">Features</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#community">Discord</a></li>
-                <li><a href="#countdown">Release</a></li>
-                <li><a href="#resources">Resources</a></li>
-            </ul>
             <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Switch to dark theme" aria-pressed="false">
                 Dark Mode
+            </button>
+            <button type="button" class="hamburger" id="hamburger" aria-label="Open navigation menu" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
             </button>
         </div>
     </nav>
@@ -1347,6 +1436,27 @@
         // Update countdown every second
         updateCountdown();
         setInterval(updateCountdown, 1000);
+
+        // Hamburger menu toggle
+        const hamburger = document.getElementById('hamburger');
+        const mainNav = document.getElementById('main-nav');
+
+        hamburger.addEventListener('click', () => {
+            const isOpen = mainNav.classList.toggle('nav-open');
+            hamburger.classList.toggle('open', isOpen);
+            hamburger.setAttribute('aria-expanded', String(isOpen));
+            hamburger.setAttribute('aria-label', isOpen ? 'Close navigation menu' : 'Open navigation menu');
+        });
+
+        // Close menu when a nav link is clicked
+        document.querySelectorAll('#nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                mainNav.classList.remove('nav-open');
+                hamburger.classList.remove('open');
+                hamburger.setAttribute('aria-expanded', 'false');
+                hamburger.setAttribute('aria-label', 'Open navigation menu');
+            });
+        });
 
         // Smooth scroll for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
