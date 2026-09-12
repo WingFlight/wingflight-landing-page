@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Wingflight - Open Source Flight Stabilizer for Winged Aircraft">
-    <meta name="keywords" content="flight simulator, 3D, LOS, gliders, winged aircraft, rotorflight alternative">
-    <meta property="og:title" content="Wingflight - Coming Soon">
-    <meta property="og:description" content="Advanced open source flight stabilizer and autopilot for winged aircraft, gliders, and jets">
+    <meta name="description" content="Wingflight - Open Source Flight Controller Firmware for Fixed-Wing Aircraft">
+    <meta name="keywords" content="flight controller, firmware, fixed wing, 3D aerobatics, flying wing, gliders, rotorflight fork">
+    <meta property="og:title" content="Wingflight - Open Source Flight Control for Fixed-Wing Aircraft">
+    <meta property="og:description" content="Open source flight controller firmware and configurator for sport, 3D, aerobatic and flying-wing aircraft">
     <meta property="og:image" content="logos/wingflight_logo_gray_full.png">
     <link rel="icon" type="image/x-icon" href="logos/favicon.ico">
-    <title>Wingflight - Coming Soon | Open Source Flight Stabilizer</title>
+    <title>Wingflight | Open Source Flight Control for Fixed-Wing Aircraft</title>
     <style>
         * {
             margin: 0;
@@ -399,8 +399,8 @@
             line-height: 1.6;
         }
 
-        /* Countdown Timer */
-        .countdown-section {
+        /* Release Section */
+        .release-section {
             padding: 100px 40px;
             background: linear-gradient(135deg, #d40000 0%, #a40000 100%);
             color: white;
@@ -409,12 +409,12 @@
             overflow: hidden;
         }
 
-        .countdown-content {
+        .release-content {
             max-width: 980px;
             margin: 0 auto;
         }
 
-        .launch-badge {
+        .release-badge {
             display: inline-flex;
             align-items: center;
             gap: 14px;
@@ -426,27 +426,21 @@
             backdrop-filter: blur(10px);
         }
 
-        .launch-badge img {
-            height: 34px;
-            width: auto;
-            display: block;
-        }
-
-        .launch-badge span {
+        .release-badge span {
             font-size: 0.85em;
             font-weight: 700;
             letter-spacing: 0.08em;
             text-transform: uppercase;
         }
 
-        .countdown-section h2 {
+        .release-section h2 {
             font-size: 2.5em;
             font-weight: 900;
             margin-bottom: 18px;
             letter-spacing: -1px;
         }
 
-        .countdown-lead {
+        .release-lead {
             max-width: 760px;
             margin: 0 auto 18px;
             font-size: 1.1em;
@@ -454,7 +448,7 @@
             color: rgba(255, 255, 255, 0.9);
         }
 
-        .countdown-meta {
+        .release-meta {
             margin-bottom: 40px;
             font-size: 0.95em;
             font-weight: 700;
@@ -463,37 +457,64 @@
             color: rgba(255, 255, 255, 0.78);
         }
 
-        .countdown-timer {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-            gap: 20px;
-            max-width: 600px;
-            margin: 0 auto 50px;
+        .release-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            justify-content: center;
+            margin: 0 auto 44px;
         }
 
-        .countdown-item {
+        .release-btn {
+            display: inline-block;
+            padding: 14px 32px;
+            border-radius: 8px;
+            font-weight: 700;
+            text-decoration: none;
+            border: 2px solid rgba(255, 255, 255, 0.85);
+            transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease;
+        }
+
+        .release-btn-solid {
+            background: #ffffff;
+            color: #b00000;
+        }
+
+        .release-btn-ghost {
+            background: transparent;
+            color: #ffffff;
+        }
+
+        .release-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .release-btn-ghost:hover {
             background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(10px);
-            padding: 30px 20px;
+        }
+
+        .release-hardware {
+            max-width: 820px;
+            margin: 0 auto 28px;
+            padding: 22px 26px;
             border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.14);
+            border: 1px solid rgba(255, 255, 255, 0.24);
+            font-size: 1.05em;
+            line-height: 1.7;
+            color: rgba(255, 255, 255, 0.95);
         }
 
-        .countdown-number {
-            font-size: 2.5em;
-            font-weight: 900;
+        .release-hardware strong {
             display: block;
-            margin-bottom: 10px;
-        }
-
-        .countdown-label {
+            margin-bottom: 6px;
             font-size: 0.85em;
+            font-weight: 700;
+            letter-spacing: 0.08em;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            opacity: 0.9;
         }
 
-        .launch-note {
+        .release-note {
             max-width: 760px;
             margin: 0 auto;
             font-size: 1.05em;
@@ -501,7 +522,7 @@
             color: rgba(255, 255, 255, 0.92);
         }
 
-        .launch-note a {
+        .release-note a {
             color: white;
             font-weight: 700;
         }
@@ -872,7 +893,7 @@
                 font-size: 2em;
             }
 
-            .countdown-section h2 {
+            .release-section h2 {
                 font-size: 1.8em;
             }
 
@@ -891,17 +912,15 @@
                 font-size: 1.9em;
             }
 
-            .countdown-timer {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 10px;
+            .release-actions {
+                flex-direction: column;
+                align-items: center;
             }
 
-            .countdown-item {
-                padding: 20px 15px;
-            }
-
-            .countdown-number {
-                font-size: 1.8em;
+            .release-btn {
+                width: 100%;
+                max-width: 300px;
+                text-align: center;
             }
 
             .about h2 {
@@ -909,7 +928,7 @@
             }
 
             .features,
-            .countdown-section,
+            .release-section,
             .about {
                 padding: 60px 20px;
             }
@@ -960,11 +979,11 @@
                 font-size: 1.5em;
             }
 
-            .countdown-section h2 {
+            .release-section h2 {
                 font-size: 1.3em;
             }
 
-            .launch-badge {
+            .release-badge {
                 flex-direction: column;
                 text-align: center;
             }
@@ -1122,7 +1141,7 @@
             <li><a href="#features">Features</a></li>
             <li><a href="#about">About</a></li>
             <li><a href="#community">Discord</a></li>
-            <li><a href="#countdown">Release</a></li>
+            <li><a href="#release">Downloads</a></li>
             <li><a href="#resources">Resources</a></li>
         </ul>
         <div class="nav-actions">
@@ -1145,13 +1164,17 @@
             <h1>
                 <span class="headline-accent">Stabilize</span> Your Flight
             </h1>
-            <p class="hero-subtitle">Advanced Open Source Flight Control for Winged Aircraft</p>
+            <p class="hero-subtitle">Open Source Flight Controller Firmware for Fixed-Wing Aircraft</p>
             <p class="hero-description">
-                Wingflight is the flight stabilizer system designed for winged aircraft. 
-                Built by engineers and pilots, for everyone—bringing professional flight control to your aircraft.
+                Wingflight is flight controller firmware and a matching configurator for sport planes, 3D and
+                aerobatic aircraft, gliders and flying wings. Built by pilots and engineers, it is flying today
+                and published as open source snapshots you can download and flash right now.
             </p>
             <div class="cta-group">
-                <a href="https://github.com/WingFlight" class="btn btn-primary" target="_blank">
+                <a href="https://doc.wingflight.org/getting-started/" class="btn btn-primary" target="_blank" rel="noopener noreferrer">
+                    Get Started
+                </a>
+                <a href="https://github.com/WingFlight" class="btn btn-secondary" target="_blank" rel="noopener noreferrer">
                     View on GitHub
                 </a>
             </div>
@@ -1227,42 +1250,42 @@
         </div>
     </section>
 
-    <!-- Countdown Section -->
-    <section class="countdown-section" id="countdown">
-        <div class="countdown-content">
-            <div class="launch-badge">
-                <img src="https://www.jetpower.de/typo3temp/assets/_processed_/e/b/csm_jetpower-logo_a9d3021c1c.png" alt="JetPower logo">
-                <span>JetPower Release Event</span>
+    <!-- Release Section -->
+    <section class="release-section" id="release">
+        <div class="release-content">
+            <div class="release-badge">
+                <span>Now Flying &mdash; Public Snapshots</span>
             </div>
 
-            <h2>Countdown To Wingflight's First Flyable Release</h2>
-            <p class="countdown-lead">
-                The Wingflight dev team will be at JetPower, and on 04 September 2026 we will publish the first flyable release.
+            <h2>Download Wingflight</h2>
+            <p class="release-lead">
+                Firmware, configurator, blackbox log viewer and transmitter scripts are all public and updated
+                continuously. Wingflight is still an early-stage project: builds ship as numbered snapshots rather
+                than stable releases, so read the release notes before you flash and back up your setup before tuning.
             </p>
-            <p class="countdown-meta">04 September 2026 | JetPower</p>
+            <p class="release-meta">Snapshot builds for STM32 F4, F7, G4 and H7 targets</p>
 
-            <div class="countdown-timer">
-                <div class="countdown-item">
-                    <span class="countdown-number" id="days">00</span>
-                    <span class="countdown-label">Days</span>
-                </div>
-                <div class="countdown-item">
-                    <span class="countdown-number" id="hours">00</span>
-                    <span class="countdown-label">Hours</span>
-                </div>
-                <div class="countdown-item">
-                    <span class="countdown-number" id="minutes">00</span>
-                    <span class="countdown-label">Minutes</span>
-                </div>
-                <div class="countdown-item">
-                    <span class="countdown-number" id="seconds">00</span>
-                    <span class="countdown-label">Seconds</span>
-                </div>
+            <div class="release-actions">
+                <a href="https://github.com/WingFlight/wingflight-firmware/releases" class="release-btn release-btn-solid" target="_blank" rel="noopener noreferrer">
+                    Download Firmware
+                </a>
+                <a href="https://cfg.wingflight.org" class="release-btn release-btn-ghost" target="_blank" rel="noopener noreferrer">
+                    Open Configurator
+                </a>
             </div>
 
-            <p class="launch-note">
-                Meet the team at JetPower and follow the release as it happens. Event details are available at
-                <a href="https://www.jetpower.de/" target="_blank" rel="noopener noreferrer">jetpower.de</a>.
+            <p class="release-hardware">
+                <strong>Runs on the hardware you already fly</strong>
+                Common Rotorflight flight controllers are well supported, including the Nexus F7, Nexus X,
+                Nexus XR and the Vantac RF007.
+            </p>
+
+            <p class="release-note">
+                Coming from Rotorflight? The
+                <a href="https://github.com/WingFlight/rotorflight-to-wingflight" target="_blank" rel="noopener noreferrer">migration tool</a>
+                helps you move an existing setup across, and the
+                <a href="https://doc.wingflight.org/getting-started/" target="_blank" rel="noopener noreferrer">getting started guide</a>
+                walks through flashing, first connection and setup.
             </p>
         </div>
     </section>
@@ -1273,7 +1296,7 @@
             <div class="community-copy">
                 <h2>Join The Wingflight Discord</h2>
                 <p>
-                    Follow development, see milestone updates, and connect with pilots and contributors as the first public release approaches.
+                    Get setup help, tuning advice and airframe-specific answers from the pilots and developers building Wingflight.
                 </p>
                 <div class="community-actions">
                     <a href="https://discord.gg/aEyyAJTXRw" class="discord-link" target="_blank" rel="noopener noreferrer" aria-label="Join the Wingflight Discord server">
@@ -1282,13 +1305,14 @@
                         </svg>
                         Join Discord
                     </a>
-                    <span class="community-hint">Get release updates, testing news, and direct contact with the Wingflight community.</span>
+                    <span class="community-hint">Snapshot announcements, tuning discussion, and direct contact with the dev team.</span>
                 </div>
             </div>
             <aside class="community-aside">
-                <h3>Why Join Now</h3>
+                <h3>Why Join</h3>
                 <p>
-                    Discord is where JetPower plans, test progress, and release-day coordination will be shared first. It is the best place to stay close to the project as the MVP turns into a public release.
+                    Discord is the fastest place to get unstuck. New snapshots, known issues and flight reports land
+                    there first, and it is where feature requests and bug reports turn into the next build.
                 </p>
             </aside>
         </div>
@@ -1299,7 +1323,7 @@
         <div class="progress-content">
             <div class="progress-header">
                 <h2>Wingflight Progress</h2>
-                <p>Current milestones toward the first flyable release.</p>
+                <p>What is already flying, and what the team is working on next.</p>
             </div>
 
             <div class="progress-list">
@@ -1309,10 +1333,13 @@
                 <div class="progress-item completed"><span class="progress-check">&#10003;</span><span>ESC programming via PC</span></div>
                 <div class="progress-item completed"><span class="progress-check">&#10003;</span><span>Support for bus servos</span></div>
                 <div class="progress-item completed"><span class="progress-check">&#10003;</span><span>First successful test flight</span></div>
+                <div class="progress-item completed"><span class="progress-check">&#10003;</span><span>Public snapshot releases of firmware and configurator</span></div>
+                <div class="progress-item completed"><span class="progress-check">&#10003;</span><span>Blackbox logging and log viewer</span></div>
+                <div class="progress-item completed"><span class="progress-check">&#10003;</span><span>Lua suites for FrSky Ethos and EdgeTX</span></div>
+                <div class="progress-item completed"><span class="progress-check">&#10003;</span><span>Thrust vectoring support</span></div>
                 <div class="progress-item pending"><span class="progress-check">&#10003;</span><span>Simplified PID controller and tuning architecture</span></div>
                 <div class="progress-item pending"><span class="progress-check">&#10003;</span><span>Controller auto tune</span></div>
                 <div class="progress-item pending"><span class="progress-check">&#10003;</span><span>Extensive testing</span></div>
-                <div class="progress-item pending"><span class="progress-check">&#10003;</span><span>Thrust vectoring support</span></div>
                 <div class="progress-item pending"><span class="progress-check">&#10003;</span><span>HITL/SITL environment</span></div>
             </div>
         </div>
@@ -1322,7 +1349,7 @@
     <section class="features" id="features">
         <div class="features-header">
             <h2>Why Wingflight?</h2>
-            <p>Professional-grade flight stabilization for gliders, winged aircraft, and jets</p>
+            <p>Flight control built around fixed-wing aerodynamics, not adapted from helicopters</p>
         </div>
         <div class="features-grid">
             <div class="feature-card">
@@ -1332,18 +1359,18 @@
             </div>
             <div class="feature-card">
                 <div class="feature-icon">📡</div>
-                <h3>Precision Control</h3>
-                <p>Real-time flight control algorithms with intuitive stick feel and responsive handling.</p>
+                <h3>Fixed-Wing Flight Modes</h3>
+                <p>Attitude hold, auto hover, auto trim, trainer mode, cross-axis relax and a throttle governor, each designed for aircraft with control surfaces.</p>
             </div>
             <div class="feature-card">
                 <div class="feature-icon">🚀</div>
                 <h3>Multi-Aircraft Support</h3>
-                <p>Gliders, 3D sport aircraft, jets, and more—adaptable to any winged platform with configurable parameters.</p>
+                <p>Sport and scale planes, 3D and aerobatic models, gliders, flying wings and deltas, with thrust vectoring for aircraft that need it.</p>
             </div>
             <div class="feature-card">
                 <div class="feature-icon">🔧</div>
-                <h3>Fully Customizable</h3>
-                <p>Open source architecture with extensive tuning options and telemetry for precise aircraft configuration.</p>
+                <h3>Configure Anywhere</h3>
+                <p>Set up your aircraft from the desktop configurator or straight from the browser, with bus servo support and ESC programming from the PC.</p>
             </div>
             <div class="feature-card">
                 <div class="feature-icon">🌐</div>
@@ -1352,8 +1379,8 @@
             </div>
             <div class="feature-card">
                 <div class="feature-icon">📊</div>
-                <h3>Full Telemetry</h3>
-                <p>Comprehensive data logging and real-time monitoring for flight analysis and system optimization.</p>
+                <h3>Telemetry & Blackbox</h3>
+                <p>Blackbox logging with its own log viewer, plus Lua suites that put live telemetry and tuning on FrSky Ethos and EdgeTX transmitters.</p>
             </div>
         </div>
     </section>
@@ -1363,29 +1390,30 @@
         <div class="about-content">
             <h2>About Wingflight</h2>
             <p>
-                Wingflight is an open source flight stabilizer built on the proven foundation of Rotorflight, but designed 
-                for fixed-wing aircraft. We bring the same engineering excellence, community-driven development, and passion to 
-                winged flight. Whether you're flying gliders, 3D sport aircraft, or jets, Wingflight provides rock-solid 
-                stabilization and intuitive control.
+                Wingflight is an open source flight controller firmware forked from Rotorflight and refocused entirely on
+                fixed-wing flight. It keeps Rotorflight's MSP protocol, CLI and configuration philosophy, but its mixer,
+                flight modes and tuning tools are built around aileron, elevator and rudder surfaces, propeller motors and
+                cross-axis coupling rather than swashplates and tail rotors.
             </p>
             <p>
-                Our mission is to democratize advanced flight control technology. Built by engineers and pilots, Wingflight 
-                combines cutting-edge algorithms with ease-of-use, making professional-grade flight stabilization accessible 
-                to the entire community. Join us in shaping the future of open source flight control.
+                The project is young and moving fast. Firmware and configurator are published as numbered snapshots, the
+                documentation grows with every build, and development happens in the open on GitHub and Discord. Our mission
+                is to make advanced flight control accessible to every pilot, and contributions, flight reports and bug
+                reports all shape where it goes next.
             </p>
 
             <div class="about-highlights">
                 <div class="highlight">
-                    <h3>🪂 For Gliders</h3>
-                    <p>Stable thermaling and long-distance flight with wind-aware stabilization modes.</p>
+                    <h3>🪂 For Sport & Scale</h3>
+                    <p>Calm, predictable stabilization with auto trim and a trainer mode for relaxed flying.</p>
                 </div>
                 <div class="highlight">
-                    <h3>🎯 For 3D Aircraft</h3>
-                    <p>Full authority control for extreme aerobatics with precision stabilization.</p>
+                    <h3>🎯 For 3D & Aerobatics</h3>
+                    <p>Full authority control with attitude hold and auto hover for hard aerobatic flying.</p>
                 </div>
                 <div class="highlight">
-                    <h3>⚡ For Jets & Beyond</h3>
-                    <p>High-speed flight control with advanced stabilization and precision systems.</p>
+                    <h3>⚡ For Wings & Deltas</h3>
+                    <p>Mixers for conventional and delta airframes, plus thrust vectoring with its own hold mode.</p>
                 </div>
             </div>
         </div>
@@ -1395,7 +1423,9 @@
     <footer>
         <div class="footer-content">
             <div class="social-links">
-                <a href="https://github.com/WingFlight" title="GitHub" target="_blank">GitHub</a>
+                <a href="https://github.com/WingFlight" title="GitHub" target="_blank" rel="noopener noreferrer">GitHub</a>
+                <a href="https://doc.wingflight.org" title="Documentation" target="_blank" rel="noopener noreferrer">Docs</a>
+                <a href="https://discord.gg/aEyyAJTXRw" title="Discord" target="_blank" rel="noopener noreferrer">Discord</a>
             </div>
             <div class="footer-bottom">
                 <p>&copy; 2026 Wingflight Project. All rights reserved. | <strong>Freedom in Flight</strong></p>
@@ -1423,37 +1453,6 @@
             localStorage.setItem('theme', nextTheme);
             applyTheme(nextTheme);
         });
-
-        // Countdown Timer
-        function updateCountdown() {
-            const launchDate = new Date('2026-09-04T00:00:00');
-
-            const now = new Date().getTime();
-            const distance = launchDate.getTime() - now;
-
-            if (distance <= 0) {
-                document.getElementById('days').textContent = '00';
-                document.getElementById('hours').textContent = '00';
-                document.getElementById('minutes').textContent = '00';
-                document.getElementById('seconds').textContent = '00';
-                document.querySelector('.countdown-section h2').textContent = 'Wingflight Is Live';
-                return;
-            }
-
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-            document.getElementById('days').textContent = String(days).padStart(2, '0');
-            document.getElementById('hours').textContent = String(hours).padStart(2, '0');
-            document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
-            document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
-        }
-
-        // Update countdown every second
-        updateCountdown();
-        setInterval(updateCountdown, 1000);
 
         // Hamburger menu toggle
         const hamburger = document.getElementById('hamburger');
