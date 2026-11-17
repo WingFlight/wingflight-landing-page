@@ -1167,7 +1167,7 @@
             <p class="hero-subtitle">Open Source Flight Controller Firmware for Fixed-Wing Aircraft</p>
             <p class="hero-description">
                 Wingflight is flight controller firmware and a matching configurator for sport planes, 3D and
-                aerobatic aircraft, gliders and flying wings. Built by pilots and engineers, it is flying today
+                aerobatic aircraft, jets, gliders and flying wings. Built by pilots and engineers, it is flying today
                 and published as open source snapshots you can download and flash right now.
             </p>
             <div class="cta-group">
@@ -1266,8 +1266,8 @@
             <p class="release-meta">Snapshot builds for STM32 F4, F7, G4 and H7 targets</p>
 
             <div class="release-actions">
-                <a href="https://github.com/WingFlight/wingflight-firmware/releases" class="release-btn release-btn-solid" target="_blank" rel="noopener noreferrer">
-                    Download Firmware
+                <a href="https://github.com/WingFlight/wingflight-configurator/releases" class="release-btn release-btn-solid" target="_blank" rel="noopener noreferrer">
+                    Download Configurator
                 </a>
                 <a href="https://cfg.wingflight.org" class="release-btn release-btn-ghost" target="_blank" rel="noopener noreferrer">
                     Open Configurator
@@ -1277,7 +1277,8 @@
             <p class="release-hardware">
                 <strong>Runs on the hardware you already fly</strong>
                 Common Rotorflight flight controllers are well supported, including the Nexus F7, Nexus X,
-                Nexus XR and the Vantac RF007.
+                Nexus XR, the Vantac RF007 and RF007 V3, and the FrSky Aegis Lite. The configurator picks
+                the right firmware and board configuration when you flash.
             </p>
 
             <p class="release-note">
@@ -1337,10 +1338,13 @@
                 <div class="progress-item completed"><span class="progress-check">&#10003;</span><span>Blackbox logging and log viewer</span></div>
                 <div class="progress-item completed"><span class="progress-check">&#10003;</span><span>Lua suites for FrSky Ethos and EdgeTX</span></div>
                 <div class="progress-item completed"><span class="progress-check">&#10003;</span><span>Thrust vectoring support</span></div>
-                <div class="progress-item pending"><span class="progress-check">&#10003;</span><span>Simplified PID controller and tuning architecture</span></div>
-                <div class="progress-item pending"><span class="progress-check">&#10003;</span><span>Controller auto tune</span></div>
+                <div class="progress-item completed"><span class="progress-check">&#10003;</span><span>Backup receiver that takes over when the main link is lost</span></div>
+                <div class="progress-item completed"><span class="progress-check">&#10003;</span><span>Up to 24 servos across PWM pins and S.BUS / FBUS bus channels</span></div>
+                <div class="progress-item completed"><span class="progress-check">&#10003;</span><span>Tune Advisor: per-axis tuning suggestions from your own flights</span></div>
+                <div class="progress-item completed"><span class="progress-check">&#10003;</span><span>Experimental GPS return-to-home and loiter</span></div>
+                <div class="progress-item completed"><span class="progress-check">&#10003;</span><span>SITL simulator with JSBSim physics and FlightGear</span></div>
+                <div class="progress-item pending"><span class="progress-check">&#10003;</span><span>HITL (real flight controller in the loop) and automated test runs</span></div>
                 <div class="progress-item pending"><span class="progress-check">&#10003;</span><span>Extensive testing</span></div>
-                <div class="progress-item pending"><span class="progress-check">&#10003;</span><span>HITL/SITL environment</span></div>
             </div>
         </div>
     </section>
@@ -1360,17 +1364,17 @@
             <div class="feature-card">
                 <div class="feature-icon">📡</div>
                 <h3>Fixed-Wing Flight Modes</h3>
-                <p>Attitude hold, auto hover, auto trim, trainer mode, cross-axis relax and a throttle governor, each designed for aircraft with control surfaces.</p>
+                <p>Attitude hold, angle and trainer modes, auto trim, a traditional rate-gyro feel, snap, prop-hang and cross-axis relax for 3D, a throttle governor and experimental GPS return-to-home.</p>
             </div>
             <div class="feature-card">
                 <div class="feature-icon">🚀</div>
                 <h3>Multi-Aircraft Support</h3>
-                <p>Sport and scale planes, 3D and aerobatic models, gliders, flying wings and deltas, with thrust vectoring for aircraft that need it.</p>
+                <p>Sport and scale planes, 3D and aerobatic models, jets, gliders, flying wings and deltas. A rule-based mixer covers ailerons, elevons, V-tail, flaps and differential thrust, with thrust vectoring for aircraft that need it.</p>
             </div>
             <div class="feature-card">
                 <div class="feature-icon">🔧</div>
                 <h3>Configure Anywhere</h3>
-                <p>Set up your aircraft from the desktop configurator or straight from the browser, with bus servo support and ESC programming from the PC.</p>
+                <p>Set up your aircraft from the desktop configurator, the browser or your Ethos and EdgeTX transmitter. Drive up to 24 servos on PWM or bus outputs, and program ESCs from the PC.</p>
             </div>
             <div class="feature-card">
                 <div class="feature-icon">🌐</div>
@@ -1379,8 +1383,8 @@
             </div>
             <div class="feature-card">
                 <div class="feature-icon">📊</div>
-                <h3>Telemetry & Blackbox</h3>
-                <p>Blackbox logging with its own log viewer, plus Lua suites that put live telemetry and tuning on FrSky Ethos and EdgeTX transmitters.</p>
+                <h3>Telemetry, Blackbox & Tuning</h3>
+                <p>Telemetry over CRSF, S.Port, FBUS, SRXL2 and more, ESC telemetry from most major brands, high-rate Blackbox logging with its own viewer, and a Tune Advisor that suggests your next change.</p>
             </div>
         </div>
     </section>
@@ -1409,11 +1413,11 @@
                 </div>
                 <div class="highlight">
                     <h3>🎯 For 3D & Aerobatics</h3>
-                    <p>Full authority control with attitude hold and auto hover for hard aerobatic flying.</p>
+                    <p>Full authority control with attitude hold, snap relax and prop-hang relax for hard aerobatic flying.</p>
                 </div>
                 <div class="highlight">
                     <h3>⚡ For Wings & Deltas</h3>
-                    <p>Mixers for conventional and delta airframes, plus thrust vectoring with its own hold mode.</p>
+                    <p>Elevon, V-tail and delta mixing, differential thrust, plus thrust vectoring with its own hold mode.</p>
                 </div>
             </div>
         </div>
@@ -1428,7 +1432,7 @@
                 <a href="https://discord.gg/aEyyAJTXRw" title="Discord" target="_blank" rel="noopener noreferrer">Discord</a>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2026 Wingflight Project. All rights reserved. | <strong>Freedom in Flight</strong></p>
+                <p>&copy; 2026 Wingflight Project. Open source under the GNU GPL v3. | <strong>Freedom in Flight</strong></p>
             </div>
         </div>
     </footer>
